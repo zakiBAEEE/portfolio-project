@@ -27,6 +27,11 @@ class PortfolioController extends Controller
             'thumbnail' => 'nullable|url',
         ]);
 
+        if ($request->hasFile('thumbnail')) {
+            $path = $request->file('thumbnail')->store('thumbnails', 'public');
+            $validated['thumbnail'] = asset('storage/' . $path);
+        }
+
         $item = PortfolioItem::create($validated);
         return response()->json($item, 201);
     }
@@ -42,6 +47,12 @@ class PortfolioController extends Controller
             'url' => 'sometimes|url',
             'thumbnail' => 'nullable|url',
         ]);
+
+        if ($request->hasFile('thumbnail')) {
+            $path = $request->file('thumbnail')->store('thumbnails', 'public');
+            $validated['thumbnail'] = asset('storage/' . $path);
+        }
+
 
         $item->update($validated);
         return response()->json($item);
