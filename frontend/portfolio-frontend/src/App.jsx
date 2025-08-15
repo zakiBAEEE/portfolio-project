@@ -1,17 +1,35 @@
+import { useState } from "react";
 import Me from "./components/me";
 
 
 function App() {
+
+  const [activeTabs, setActiveTabs] = useState("me");
+
+  const handleTabs = (tab) => {
+    setActiveTabs(tab);
+  }
+
   return (
     <div className="relative min-h-screen min-w-screen overflow-hidden flex justify-center">
       {/* Background layer */}
       <div className="absolute inset-0 bg-[url('/bekron.jpg')] bg-cover bg-center blur-xl scale-105"></div>
 
       {/* Content layer */}
-      <div className="relative z-10 p-8 text-white flex justify-center w-[50%]">
+      <div className="relative z-10 p-8 text-white  justify-center w-[50%]">
+        <div className="flex flex-row justify-start gap-7 text-white mb-5">
+          <p className={`font-semibold text-3xl ${activeTabs == 'me' ?
+            'bg-emerald-700' : 'bg-transparent'} cursor-pointer rounded-lg p-2`} onClick={() => handleTabs("me")}>
+            Muhammad Dzaky R
+          </p>
+          <p className={`font-semibold text-3xl ${activeTabs == 'portfolio' ?
+            'bg-emerald-700' : 'bg-transparent'} cursor-pointer rounded-lg p-2`} onClick={() => handleTabs("portfolio")}>
+            Portfolio
+          </p>
+        </div>
         <Me />
       </div>
-    </div>
+    </div >
   );
 }
 
